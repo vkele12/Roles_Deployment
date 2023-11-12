@@ -1,3 +1,4 @@
+---
 name: Provision Roles
 on:
   workflow_dispatch:
@@ -13,37 +14,32 @@ on:
       lpa_organization_ou:
         description: value change in OU
         required: true
-        type: string  
+        type: string
 jobs:
   provision-roles:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-     # - uses: actions/setup-node@v3
-     #   with:
-     #     node-version: '14'
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: '${{ secrets.ACCESS_KEY }}'
-          aws-secret-access-key: '${{ secrets.SECRET_KEY }}'
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: ap-south-1
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_wrapper: false
-     - name: Terraform Apply
-        id:   apply
+      - name: Env call
+        id: set env
         env:
-          TF_VAR_1:  "${{ github.event.inputs.role_deployment_account_id }}"
-          TF_VAR_2:  "${{ github.event.inputs.lpa_output_file_role_change }}"
-          TF_VAR_3:  "${{ github.event.inputs.lpa_organization_ou }}"
+          TF_VAR_1: ${{ github.event.inputs.role_deployment_account_id }}
+          TF_VAR_2: ${{ github.event.inputs.lpa_output_file_role_change }}
+          TF_VAR_3: ${{ github.event.inputs.lpa_organization_ou }}
+      - name: Terraform Apply
+        id: apply
         run: |
           cd tf-example/
           terraform init
           terraform validate
           terraform plan 
-         # terraform apply -auto-approve
-          
-     
-          
