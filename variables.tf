@@ -6,7 +6,7 @@ variable "deploying_role" {
 variable "role_deployment_account_id" {
   type        = string
   description = "Account where the service role will be deployed"
-  default     = "003639144106"
+ # default     = "003639144106"
 }
 
 variable "artifacts_account_id" {
@@ -42,5 +42,11 @@ variable "default_tags" {
 variable "lpa_organization_ou" {
   description = "Organization OU id, shall be set for DevOU when role developed in DevOU account; TestOU - when in TestOU account etc."
   type        = string
-  default     = "ou-9d1y-91f03w0t"
+ # default     = "ou-9d1y-91f03w0t"
+}
+
+variable "lpa_output_file_role_change" {
+  description = "Output.tf file role name change."
+  type        = string
+  
 }
