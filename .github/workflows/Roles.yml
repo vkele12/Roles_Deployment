@@ -2,14 +2,18 @@ name: Provision Roles
 on:
   workflow_dispatch:
     inputs:
-      Account_no:
+      role_deployment_account_id:
         description: Account no
         required: true
         type: string
-      output_value:
+      lpa_output_file_role_change:
         description: value change in ouput
         required: true
         type: string
+      lpa_organization_ou:
+        description: value change in ouput
+        required: true
+        type: string  
 jobs:
   provision-roles:
     runs-on: ubuntu-latest
@@ -31,9 +35,11 @@ jobs:
      - name: Terraform Apply
         id:   apply
         env:
-          TF_VAR_1:  "${{ github.event.inputs.Account_no }}"
+          TF_VAR_1:  "${{ github.event.inputs.role_deployment_account_id }}"
         env:
-          TF_VAR_2:  "${{ github.event.inputs.output_value }}"
+          TF_VAR_2:  "${{ github.event.inputs.lpa_output_file_role_change }}"
+        env:
+          TF_VAR_3:  "${{ github.event.inputs.lpa_organization_ou }}"
         run: |
           cd tf-example/
           terraform init
