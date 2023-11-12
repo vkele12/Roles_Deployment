@@ -11,7 +11,7 @@ on:
         required: true
         type: string
       lpa_organization_ou:
-        description: value change in ouput
+        description: value change in OU
         required: true
         type: string  
 jobs:
