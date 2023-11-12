@@ -1,32 +1,45 @@
-# This is a basic workflow that is manually triggered
-
-name: Manual workflow
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
+---
+name: Provision Roles
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      role_deployment_account_id:
+        description: Account no
         required: true
-        # The data type of the input
         type: string
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+      lpa_output_file_role_change:
+        description: value change in ouput
+        required: true
+        type: string
+      lpa_organization_ou:
+        description: value change in OU
+        required: true
+        type: string
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
-    # The type of runner that the job will run on
+  provision-roles:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+      - uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+          aws-region: ap-south-1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+      - name: Env call
+        id: set env
+        env:
+          TF_VAR_1: ${{ github.event.inputs.role_deployment_account_id }}
+          TF_VAR_2: ${{ github.event.inputs.lpa_output_file_role_change }}
+          TF_VAR_3: ${{ github.event.inputs.lpa_organization_ou }}
+      - name: Terraform Apply
+        id: apply
+        run: |
+          cd tf-example/
+          terraform init
+          terraform validate
+          terraform plan 
