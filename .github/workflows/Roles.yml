@@ -36,9 +36,7 @@ jobs:
         id:   apply
         env:
           TF_VAR_1:  "${{ github.event.inputs.role_deployment_account_id }}"
-        env:
           TF_VAR_2:  "${{ github.event.inputs.lpa_output_file_role_change }}"
-        env:
           TF_VAR_3:  "${{ github.event.inputs.lpa_organization_ou }}"
         run: |
           cd tf-example/
