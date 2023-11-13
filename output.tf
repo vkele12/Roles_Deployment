@@ -1,7 +1,7 @@
 output "deployed_role_id" {
-  value = aws_iam_role[var.lpa_output_file_role_change].id
+  value = aws_iam_role[var.TF_VAR_2].id
 }
 
 output "deployed_role_arn" {
-  value = aws_iam_role[var.lpa_output_file_role_change].arn
+  value = aws_iam_role[var.TF_VAR_2].arn
 }
