@@ -1,7 +1,7 @@
 output "debug_info" {
   value = {
     lpa_output_file_role_change = var.lpa_output_file_role_change
-    aws_iam_roles              = aws_iam_role.names # Adjust this based on your actual resource structure
+    aws_iam_roles              = aws_iam_role.plx-user-management-deployment-roles # Adjust this based on your actual resource structure
   }
 }
 
