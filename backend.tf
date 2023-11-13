@@ -4,6 +4,6 @@ terraform {
    # key     = "deployment_roles/${var.role_deployment_account_id}/user-management-deployment-role/terraform.tfstate"
      key     = var.backend_key
     encrypt = true
-    region  = "eu-west-1"
+    region  = "ap-south-1"
   }
 }
