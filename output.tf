@@ -1,15 +1,12 @@
 output "debug_info" {
-  value = {
-    lpa_output_file_role_change = local.lpa_output_file_role_change
-    all_iam_roles = aws_iam_role
-  }
+  value = local.lpa_output_file_role_change
 }
 
 output "deployed_role_id" {
-  value = aws_iam_role[local.lpa_output_file_role_change].*["id"]
+  value = aws_iam_role.plx-user-management-deployment-roles.id
 }
 
 output "deployed_role_arn" {
-  value = aws_iam_role[local.lpa_output_file_role_change].*["arn"]
+  value = aws_iam_role.plx-user-management-deployment-roles.arn
 }
 
