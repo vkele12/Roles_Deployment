@@ -7,10 +7,10 @@ on:
         description: Account no
         required: true
         type: string
-     # lpa_output_file_role_change:
-     #   description: value change in ouput
-     #   required: true
-     #   type: string
+      lpa_output_file_role_change:
+        description: value change in ouput
+        required: true
+        type: string
       lpa_organization_ou:
         description: value change in OU
         required: true
@@ -46,5 +46,5 @@ jobs:
             -backend-config="key=${TF_BACKEND_KEY}" 
            
           terraform validate
-          terraform plan #-var "lpa_output_file_role_change=${TF_VAR_2}"
-          terraform apply -auto-approve #-var "lpa_output_file_role_change=${TF_VAR_2}"
+          terraform plan -var "lpa_output_file_role_change=${TF_VAR_2}"
+          terraform apply -auto-approve -var "lpa_output_file_role_change=${TF_VAR_2}"
