@@ -38,7 +38,7 @@ jobs:
           TF_VAR_3: ${{ github.event.inputs.lpa_organization_ou }}
         run: |
           cd ./
-          terraform init -backend-config="key=deployment_roles/${var.role_deployment_account_id}/user-management-deployment-role/terraform.tfstate"
+          terraform init -backend-config="backend-config-file=s3-backend-config.hcl"
           terraform validate
           terraform plan 
           terraform apply -auto-approve
