@@ -38,10 +38,12 @@ jobs:
           TF_VAR_3: ${{ github.event.inputs.lpa_organization_ou }}
         run: |
           cd ./
-          cat <<EOF > backend-config.auto.tfvars
-          backend_key = "deployment_roles/${TF_VAR_1}/user-management-deployment-role/terraform.tfstate" 
-          EOF
-          terraform init -backend-config=backend-config.auto.tfvars
+          
+          export TF_BACKEND_KEY="deployment_roles/${TF_VAR_1}/user-management-deployment-role/terraform.tfstate"
+          
+          terraform init \
+            -backend-config="key=${TF_BACKEND_KEY}"
+            
           terraform validate
           terraform plan 
           terraform apply -auto-approve
