@@ -45,8 +45,8 @@ jobs:
           
           terraform init \
             -backend-config="key=${TF_BACKEND_KEY}" \
-            -backend-config="key=${TF_BACKEND_KEY_1}" \
-            -backend-config="key=${TF_BACKEND_KEY_2}"
+            -backend-config="value=${TF_BACKEND_KEY_1}" \
+            -backend-config="value=${TF_BACKEND_KEY_2}"
             
           terraform validate
           terraform plan 
