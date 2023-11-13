@@ -40,14 +40,11 @@ jobs:
           cd ./
           
           export TF_BACKEND_KEY="deployment_roles/${TF_VAR_1}/user-management-deployment-role/terraform.tfstate"
-          export TF_BACKEND_KEY_1="aws_iam_role.${TF_VAR_2}.id"
-          export TF_BACKEND_KEY_2="aws_iam_role.${TF_VAR_2}.arn"
+          
           
           terraform init \
-            -backend-config="key=${TF_BACKEND_KEY}" \
-            -backend-config="value=${TF_BACKEND_KEY_1}" \
-            -backend-config="value=${TF_BACKEND_KEY_2}"
-            
+            -backend-config="key=${TF_BACKEND_KEY}" 
+           
           terraform validate
-          terraform plan 
-          terraform apply -auto-approve
+          terraform plan -var "lpa_output_file_role_change=${TF_VAR_2}"
+          terraform apply -auto-approve -var "lpa_output_file_role_change=${TF_VAR_2}"
