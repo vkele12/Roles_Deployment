@@ -44,8 +44,8 @@ jobs:
           export TF_BACKEND_KEY_2="aws_iam_rol.${TF_VAR_2}.arn"
           
           terraform init \
-            -backend-config="key=${TF_BACKEND_KEY}"
-            -backend-config="value=${TF_BACKEND_KEY_1}"
+            -backend-config="key=${TF_BACKEND_KEY}" \
+            -backend-config="value=${TF_BACKEND_KEY_1}" \
             -backend-config="value=${TF_BACKEND_KEY_2}"
             
           terraform validate
