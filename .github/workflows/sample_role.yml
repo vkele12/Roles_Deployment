@@ -1,0 +1,34 @@
+# .github/workflows/deploy-role.yml
+
+name: Deploy IAM Role
+
+on:
+  workflow_dispatch:
+    inputs:
+      role_name:
+        description: 'Name of the IAM role'
+        required: true
+
+jobs:
+  deploy_role:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0  # Set your desired Terraform version
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Deploy IAM Role
+        run: |
+          terraform apply -auto-approve -var "role_name=${{ github.event.inputs.role_name }}"
+
+      - name: Show Role ARN
+        run: |
+          terraform output role_arn
